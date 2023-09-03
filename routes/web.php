@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,4 +19,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::view('/users', 'users.index', ['users' => User::paginate(5)])->name('users.index');
+Route::get('/users', [UserController::class, 'index'])->name('users.index');
