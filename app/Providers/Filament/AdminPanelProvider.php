@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Models\Team;
 use Filament\Panel;
 use Filament\Widgets;
 use Filament\PanelProvider;
@@ -53,6 +54,8 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ]);
+            ])
+            ->tenant(Team::class)
+            ->spa();
     }
 }

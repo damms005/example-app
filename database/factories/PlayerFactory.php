@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Team;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,7 @@ class PlayerFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'level' => $this->faker->numberBetween(1, 100),
         ];
     }
 }

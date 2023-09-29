@@ -4,12 +4,15 @@ namespace App\Models;
 
 use Filament\Panel;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use Filament\Models\Contracts\HasTenants;
 use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable implements FilamentUser
+class User extends Authenticatable implements FilamentUser, HasTenants
 {
     use HasApiTokens;
     use HasFactory;
@@ -45,6 +48,16 @@ class User extends Authenticatable implements FilamentUser
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function getTenants(Panel $panel): Collection
+    {
+        return \collect($this->team);
+    }
+
+    public function canAccessTenant(Model $tenant): bool
+    {
+        return true;
+    }
 
     public function canAccessPanel(Panel $panel): bool
     {
